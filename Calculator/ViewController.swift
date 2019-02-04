@@ -28,16 +28,9 @@ class ViewController: UIViewController {
         //What should happen when a non-number button is pressed
         didCheckNumber = true
         if let calckMethod = sender.currentTitle {
-            switch calckMethod {
-            case "+/-":
-                displayValue *= -1
-            case "AC":
-                displayLabel.text = "0"
-            case "%":
-               displayValue *= 0.01
-            default:
-                break
-            }
+            var calculator =  CalculatorLogic.init(number: displayValue)
+            guard let result = calculator.calculatorLogic(symbol: calckMethod) else { fatalError("cant load") }
+            displayValue = result
         }
     }
 
