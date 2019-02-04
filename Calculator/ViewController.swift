@@ -12,13 +12,27 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel: UILabel!
     
-    var didCheckNumber: Bool = true
+  private  var didCheckNumber: Bool = true
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
         didCheckNumber = true
-        
+        guard  let number = Double(displayLabel.text!) else {
+            return
+        }
+        if let calckMethod = sender.currentTitle {
+            switch calckMethod {
+            case "+/-":
+                displayLabel.text = String(number * -1)
+            case "AC":
+                displayLabel.text = "0"
+            case "%":
+                displayLabel.text = String(number / 100)
+            default:
+                break
+            }
+        }
     }
 
     
@@ -30,6 +44,16 @@ class ViewController: UIViewController {
                 displayLabel.text = numValue
                 didCheckNumber = false
             }else {
+                if numValue == "." {
+                    guard let currentDisplayValue = Double(displayLabel.text!) else {
+                        return
+                    }
+                      let isInt = floor(currentDisplayValue)  == currentDisplayValue
+                    
+                    if !isInt {
+                        return
+                    }
+                }
                 displayLabel.text = displayLabel.text! + numValue
             }
         }
