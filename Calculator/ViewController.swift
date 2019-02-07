@@ -22,13 +22,16 @@ class ViewController: UIViewController {
             displayLabel.text = String(newValue)
         }
     }
+    private var calculator = CalculatorLogic()
+    
+    
+    
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        
         //What should happen when a non-number button is pressed
         didCheckNumber = true
+        calculator.setNumber(displayValue)
         if let calckMethod = sender.currentTitle {
-            var calculator =  CalculatorLogic.init(number: displayValue)
             guard let result = calculator.calculatorLogic(symbol: calckMethod) else { fatalError("cant load") }
             displayValue = result
         }
@@ -36,7 +39,6 @@ class ViewController: UIViewController {
 
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
-        
         //What should happen when a number is entered into the keypad
         if let numValue = sender.currentTitle {
             if didCheckNumber == true {
